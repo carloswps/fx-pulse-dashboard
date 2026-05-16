@@ -7,8 +7,8 @@ import {
 	Stack,
 	Toolbar,
 	Typography,
-	useColorScheme,
 } from '@mui/material';
+import { useColorScheme } from '@mui/material/styles';
 import { SearchBarStyle } from '../style/SearchBar.tsx';
 
 export default function Header() {
@@ -57,7 +57,10 @@ export default function Header() {
 					</SearchBarStyle>
 
 					<Stack direction="row" spacing={1} sx={{ ml: 'auto' }}>
-						<IconButton onClick={handleToggleMode} aria-label="Toggle theme">
+						<IconButton
+							onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
+							aria-label="Toggle theme"
+						>
 							{mode === 'dark' ? <LightMode /> : <DarkMode />}
 						</IconButton>
 					</Stack>

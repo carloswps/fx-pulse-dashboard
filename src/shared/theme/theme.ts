@@ -7,6 +7,7 @@ const MONO = '"JetBrains Mono", monospace';
 const theme = createTheme({
 	cssVariables: {
 		cssVarPrefix: 'mui',
+		colorSchemeSelector: 'class',
 	},
 	colorSchemes: {
 		light: {

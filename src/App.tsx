@@ -1,19 +1,15 @@
-import { Box, Typography } from '@mui/material';
-import Header from './shared/components/Header/Header';
+import { Route, Routes } from 'react-router-dom';
+import DashboardLayout from './app/layouts/DashboardLayout.tsx';
+import DashboardPage from './feature/dashboard/pages/DashboardPage.tsx';
 
 function App() {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
-      <Typography variant="h1">Hello World</Typography>
-    </Box>
-  );
+	return (
+		<Routes>
+			<Route element={<DashboardLayout />}>
+				<Route index element={<DashboardPage />} />
+			</Route>
+		</Routes>
+	);
 }
 
 export default App;

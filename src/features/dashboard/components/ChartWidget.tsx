@@ -8,7 +8,7 @@ interface Props {
 	value: number;
 }
 
-export default function ChartWidget({ value }: Props) {
+export default function ChartWidget({ value: _value }: Props) {
 	const [range, setRange] = useState<TimeRange>('1D');
 
 	return (

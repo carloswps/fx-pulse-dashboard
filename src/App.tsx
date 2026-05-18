@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import DashboardLayout from './app/layouts/DashboardLayout.tsx';
-import DashboardPage from './feature/dashboard/pages/DashboardPage.tsx';
+import DashboardLayout from './app/layouts/DashboardLayout';
+import DashboardPage from './features/dashboard/pages/DashboardPage';
 
 function App() {
 	return (

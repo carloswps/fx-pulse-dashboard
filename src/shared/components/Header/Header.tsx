@@ -11,10 +11,22 @@ import {
 	Typography,
 	useColorScheme,
 } from '@mui/material';
+import { useCallback } from 'react';
+import FetchData from '../../services/client.ts';
 import { SearchBarStyle } from '../style/SearchBar.tsx';
 
 export default function Header() {
 	const { mode, setMode } = useColorScheme();
+
+	const handleFetchHealth = useCallback(async () => {
+		try {
+			const clientService = new FetchData('');
+			const healthData = await clientService.fetchHealthData();
+			console.log(healthData);
+		} catch (error) {
+			console.error(error);
+		}
+	}, []);
 
 	return (
 		<AppBar

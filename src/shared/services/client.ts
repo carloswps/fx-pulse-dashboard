@@ -1,4 +1,4 @@
-import type { HealthApiResponse } from '../types/types';
+import type { DashboardApiResponse, HealthApiResponse } from '../types/types';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -13,9 +13,9 @@ export default class FetchData {
 
 	async fetchHealthData(): Promise<HealthApiResponse> {
 		const response = await fetch(`${this.baseUrl}/Health`, {
+			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				GET: 'GET',
 			},
 		});
 
@@ -25,5 +25,22 @@ export default class FetchData {
 
 		const data = await response.json();
 		return data as HealthApiResponse;
+	}
+
+	async fetchDashboardData(): Promise<DashboardApiResponse[]> {
+		const response = await fetch(`${this.baseUrl}/v1/collect`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.bearerToken}`,
+			},
+		});
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const data = await response.json();
+		return data as DashboardApiResponse[];
 	}
 }

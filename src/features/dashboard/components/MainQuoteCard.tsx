@@ -1,13 +1,15 @@
 import TrendingUp from '@mui/icons-material/TrendingUp';
 import { Box, Typography } from '@mui/material';
 import type { CurrencyPair } from '../../../shared/types/market';
+import type { DashboardApiResponse } from '../../../shared/types/types.ts';
 import ChartWidget from './ChartWidget.tsx';
 
 interface Props {
 	pair: CurrencyPair;
+	chartData?: DashboardApiResponse[];
 }
 
-export default function MainQuoteCard({ pair }: Props) {
+export default function MainQuoteCard({ pair, chartData }: Props) {
 	const isPositive = pair.change >= 0;
 
 	return (
@@ -85,7 +87,7 @@ export default function MainQuoteCard({ pair }: Props) {
 			</Box>
 
 			<Box sx={{ mt: 4 }}>
-				<ChartWidget value={pair.rate} />
+				<ChartWidget value={pair.rate} data={chartData} />
 			</Box>
 		</Box>
 	);

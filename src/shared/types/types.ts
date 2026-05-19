@@ -10,3 +10,11 @@ export interface HealthApiResponse {
 	envoriment: string;
 	machineName: string;
 }
+
+export interface DashboardApiResponse {
+	id: string;
+	value: number;
+	coin: string;
+	date: string;
+	fontUrl: string;
+}

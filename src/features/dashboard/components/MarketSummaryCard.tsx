@@ -1,4 +1,6 @@
 import { Box, Typography } from '@mui/material';
+import { useCallback, useEffect } from 'react';
+import FetchData from '../../../shared/services/client';
 import type { MarketSummary } from '../../../shared/types/market';
 
 interface Props {
@@ -16,6 +18,22 @@ export default function MarketSummaryCard({ summary }: Props) {
 			value: `${summary.week52Low.toFixed(2)} — ${summary.week52High.toFixed(2)}`,
 		},
 	];
+
+	const handleFetchData = useCallback(async () => {
+		try {
+			const clientService = new FetchData(
+				'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4iLCJqdGkiOiIzOTBkM2QxYy0xMGYzLTRjMDMtOGJkZC1kN2E4MjJiZTZhYmMiLCJuYmYiOjE3NzkyMTYxNDAsImV4cCI6MTc3OTI0NDk0MCwiaWF0IjoxNzc5MjE2MTQwLCJpc3MiOiJycGEtYXBpIiwiYXVkIjoicnBhLWNsaWVudHMifQ.39gx2e9hm1RBay507akgIlYKt2uvmfVKrlhEaowDgV4',
+			);
+			const dashboardData = await clientService.fetchDashboardData();
+			console.log(dashboardData);
+		} catch (error) {
+			console.error(error);
+		}
+	}, []);
+
+	useEffect(() => {
+		handleFetchData();
+	}, [handleFetchData]);
 
 	return (
 		<Box

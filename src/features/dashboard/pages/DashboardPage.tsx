@@ -30,9 +30,7 @@ export default function DashboardPage() {
 	const { data: dashboardData } = useQuery({
 		queryKey: ['dashboard'],
 		queryFn: () => {
-			const client = new FetchData(
-				'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4iLCJqdGkiOiIzOTBkM2QxYy0xMGYzLTRjMDMtOGJkZC1kN2E4MjJiZTZhYmMiLCJuYmYiOjE3NzkyMTYxNDAsImV4cCI6MTc3OTI0NDk0MCwiaWF0IjoxNzc5MjE2MTQwLCJpc3MiOiJycGEtYXBpIiwiYXVkIjoicnBhLWNsaWVudHMifQ.39gx2e9hm1RBay507akgIlYKt2uvmfVKrlhEaowDgV4',
-			);
+			const client = new FetchData('');
 			return client.fetchDashboardData();
 		},
 		enabled: !!pairs?.length,

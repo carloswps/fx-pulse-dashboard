@@ -15,6 +15,7 @@ export default class FetchData {
 		const response = await fetch(`${this.baseUrl}/Health`, {
 			headers: {
 				'Content-Type': 'application/json',
+				GET: 'GET',
 			},
 		});
 

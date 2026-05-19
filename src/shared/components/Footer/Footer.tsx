@@ -1,4 +1,6 @@
-import { Box, Link, Stack, Typography } from '@mui/material';
+import { Box, Link, Stack } from '@mui/material';
+
+const GOOGLE_FINANCE_API = import.meta.env.VITE_GOOGLE_FINANCE_API;
 
 export default function Footer() {
 	return (
@@ -44,13 +46,17 @@ export default function Footer() {
 			</Stack>
 
 			<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-				<Typography
+				<Link
+					href={GOOGLE_FINANCE_API}
+					target="_blank"
+					rel="noopener noreferrer"
+					underline="none"
 					variant="caption"
 					color="text.disabled"
-					sx={{ fontWeight: 500 }}
+					sx={{ '&:hover': { color: 'primary.main' } }}
 				>
-					Powered by Global Market API
-				</Typography>
+					Market data provided through unofficial Google Finance integration
+				</Link>
 				<Box
 					sx={{
 						width: 6,

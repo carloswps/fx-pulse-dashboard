@@ -1,11 +1,10 @@
-import { DarkMode, LightMode, Search } from '@mui/icons-material';
+import { DarkMode, LightMode } from '@mui/icons-material';
 import {
 	AppBar,
 	Box,
 	Chip,
 	Container,
 	IconButton,
-	InputBase,
 	Stack,
 	Toolbar,
 	Typography,
@@ -15,7 +14,6 @@ import { useCallback, useEffect, useState } from 'react';
 import formatTimestamp from '../../../utils/formatTimestamp.ts';
 import FetchData from '../../services/client.ts';
 import type { HealthApiResponse } from '../../types/types.ts';
-import { SearchBarStyle } from '../style/SearchBar.tsx';
 
 export default function Header() {
 	const { mode, setMode } = useColorScheme();
@@ -98,6 +96,8 @@ export default function Header() {
 							}}
 						/>
 					</Box>
+
+					{/*
 					<SearchBarStyle
 						sx={{
 							borderRadius: 2,
@@ -109,7 +109,7 @@ export default function Header() {
 							sx={{ flex: 1, fontSize: '0.875rem' }}
 							inputProps={{ 'aria-label': 'search' }}
 						/>
-					</SearchBarStyle>
+					</SearchBarStyle>*/}
 
 					<Stack
 						direction="row"

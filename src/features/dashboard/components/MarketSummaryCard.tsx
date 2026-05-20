@@ -1,37 +1,40 @@
 import { Box, Typography } from '@mui/material';
-import { useCallback, useEffect } from 'react';
-import FetchData from '../../../shared/services/client';
-import type { MarketSummary } from '../../../shared/types/market';
+import { useMemo } from 'react';
+import type { DashboardApiResponse } from '../../../shared/types/types';
+import { calculateMarketSummary } from '../../../utils/calculateMarketSummary';
+import currencyFormatterMarketSummary from '../../../utils/currencyFormatterMarketSummary';
 
 interface Props {
-	summary: MarketSummary;
+	data?: DashboardApiResponse[];
 }
 
-export default function MarketSummaryCard({ summary }: Props) {
+export default function MarketSummaryCard({ data }: Props) {
+	const summary = useMemo(() => calculateMarketSummary(data), [data]);
+
+	if (!summary) return null;
+
 	const rows = [
-		{ label: "Day's High", value: summary.dayHigh.toFixed(4) },
-		{ label: "Day's Low", value: summary.dayLow.toFixed(4) },
-		{ label: 'Open', value: summary.open.toFixed(4) },
-		{ label: 'Prev Close', value: summary.prevClose.toFixed(4) },
+		{
+			label: "Day's High",
+			value: currencyFormatterMarketSummary.format(summary.dayHigh),
+		},
+		{
+			label: "Day's Low",
+			value: currencyFormatterMarketSummary.format(summary.dayLow),
+		},
+		{
+			label: 'Open',
+			value: currencyFormatterMarketSummary.format(summary.open),
+		},
+		{
+			label: 'Prev Close',
+			value: currencyFormatterMarketSummary.format(summary.prevClose),
+		},
 		{
 			label: '52-Week Range',
-			value: `${summary.week52Low.toFixed(2)} — ${summary.week52High.toFixed(2)}`,
+			value: `${currencyFormatterMarketSummary.format(summary.week52Low)} — ${currencyFormatterMarketSummary.format(summary.week52High)}`,
 		},
 	];
-
-	const handleFetchData = useCallback(async () => {
-		try {
-			const clientService = new FetchData('');
-			const dashboardData = await clientService.fetchDashboardData();
-			console.log(dashboardData);
-		} catch (error) {
-			console.error(error);
-		}
-	}, []);
-
-	useEffect(() => {
-		handleFetchData();
-	}, [handleFetchData]);
 
 	return (
 		<Box
@@ -71,7 +74,7 @@ export default function MarketSummaryCard({ summary }: Props) {
 							py: 1.5,
 						}}
 					>
-						<Typography variant="body2" color="textSecondary">
+						<Typography variant="body2" color="text.secondary">
 							{row.label}
 						</Typography>
 						<Typography variant="body2" sx={{ fontWeight: 600 }}>
@@ -80,6 +83,7 @@ export default function MarketSummaryCard({ summary }: Props) {
 					</Box>
 				))}
 			</Box>
+
 			<Box
 				sx={{
 					mt: 3,
@@ -99,7 +103,15 @@ export default function MarketSummaryCard({ summary }: Props) {
 				>
 					Market Sentiment
 				</Typography>
-				<Typography variant="body2" color="textSecondary" sx={{ mt: 0.5 }}>
+				<Typography
+					variant="body2"
+					sx={{
+						mt: 0.5,
+						color:
+							summary.sentiment === 'Bullish' ? 'success.main' : 'error.main',
+						fontWeight: 600,
+					}}
+				>
 					{summary.sentiment}
 				</Typography>
 			</Box>

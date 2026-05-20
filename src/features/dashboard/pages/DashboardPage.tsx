@@ -48,7 +48,7 @@ export default function DashboardPage() {
 					</Grid>
 
 					<Grid size={{ xs: 12, lg: 4 }}>
-						{summary && <MarketSummaryCard summary={summary} />}
+						{summary && <MarketSummaryCard data={dashboardData} />}
 					</Grid>
 				</Grid>
 			</Box>

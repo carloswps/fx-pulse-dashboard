@@ -1,7 +1,9 @@
 import TrendingUp from '@mui/icons-material/TrendingUp';
 import { Box, Typography } from '@mui/material';
-import type { CurrencyPair } from '../../../shared/types/market';
+import { useMemo, useState } from 'react';
+import type { CurrencyPair, TimeRange } from '../../../shared/types/market';
 import type { DashboardApiResponse } from '../../../shared/types/types.ts';
+import { getFlagUrl } from '../../../utils/getFlagUrl.ts';
 import ChartWidget from './ChartWidget.tsx';
 
 interface Props {
@@ -10,7 +12,35 @@ interface Props {
 }
 
 export default function MainQuoteCard({ pair, chartData }: Props) {
-	const isPositive = pair.change >= 0;
+	const [range, setRange] = useState<TimeRange>('1D');
+
+	const displayValue = useMemo(() => {
+		if (!chartData?.length) return pair.rate;
+
+		const now = new Date();
+		const cutoff = new Date();
+		switch (range) {
+			case '1D':
+				cutoff.setHours(now.getHours() - 24);
+				break;
+			case '5D':
+				cutoff.setDate(now.getDate() - 5);
+				break;
+			case '1M':
+				cutoff.setMonth(now.getMonth() - 1);
+				break;
+			case '1Y':
+				cutoff.setFullYear(now.getFullYear() - 1);
+				break;
+			default:
+				return chartData[chartData.length - 1].value;
+		}
+
+		const filtered = chartData.filter((d) => new Date(d.date) >= cutoff);
+		return filtered.length ? filtered[filtered.length - 1].value : pair.rate;
+	}, [chartData, range, pair.rate]);
+
+	const isPositive = displayValue >= pair.rate;
 
 	return (
 		<Box
@@ -30,6 +60,9 @@ export default function MainQuoteCard({ pair, chartData }: Props) {
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
 					<Box sx={{ display: 'flex' }}>
 						<Box
+							component={'img'}
+							src={getFlagUrl(pair.base)}
+							alt={`Flag of ${pair.base}`}
 							sx={{
 								width: 32,
 								height: 32,
@@ -38,9 +71,14 @@ export default function MainQuoteCard({ pair, chartData }: Props) {
 								borderColor: 'background.paper',
 								bgcolor: 'grey.200',
 								mr: -1,
+								objectFit: 'cover',
+								objectPosition: 'center',
 							}}
 						/>
 						<Box
+							component={'img'}
+							src={getFlagUrl(pair.quote)}
+							alt={`Flag of ${pair.quote}`}
 							sx={{
 								width: 32,
 								height: 32,
@@ -48,6 +86,9 @@ export default function MainQuoteCard({ pair, chartData }: Props) {
 								border: 2,
 								borderColor: 'background.paper',
 								bgcolor: 'grey.200',
+								mr: -1,
+								objectFit: 'cover',
+								objectPosition: 'center',
 							}}
 						/>
 					</Box>
@@ -87,7 +128,12 @@ export default function MainQuoteCard({ pair, chartData }: Props) {
 			</Box>
 
 			<Box sx={{ mt: 4 }}>
-				<ChartWidget value={pair.rate} data={chartData} />
+				<ChartWidget
+					value={pair.rate}
+					data={chartData}
+					onRangeChange={setRange}
+					range={range}
+				/>
 			</Box>
 		</Box>
 	);

@@ -1,5 +1,5 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import type { TimeRange } from '../../../shared/types/market';
 import type { DashboardApiResponse } from '../../../shared/types/types';
 
@@ -8,11 +8,16 @@ const RANGES: TimeRange[] = ['1D', '5D', '1M', '1Y', 'MAX'];
 interface Props {
 	value: number;
 	data?: DashboardApiResponse[];
+	range: TimeRange;
+	onRangeChange: (range: TimeRange) => void;
 }
 
-export default function ChartWidget({ value: _value, data }: Props) {
-	const [range, setRange] = useState<TimeRange>('1D');
-
+export default function ChartWidget({
+	value: _value,
+	data,
+	range,
+	onRangeChange,
+}: Props) {
 	const filteredData = useMemo(() => {
 		if (!data) return [];
 		const now = new Date();
@@ -43,12 +48,12 @@ export default function ChartWidget({ value: _value, data }: Props) {
 		const values = filteredData.map((d) => d.value);
 		const min = Math.min(...values);
 		const max = Math.max(...values);
-		const range = max - min || 1;
+		const valueRange = max - min || 1;
 
 		return filteredData
 			.map((d, i) => {
 				const x = (i / (filteredData.length - 1)) * 478;
-				const y = 150 - ((d.value - min) / range) * 140;
+				const y = 150 - ((d.value - min) / valueRange) * 140;
 				return `${x},${y}`;
 			})
 			.join(' ');
@@ -65,7 +70,7 @@ export default function ChartWidget({ value: _value, data }: Props) {
 					<Button
 						key={r}
 						disableRipple
-						onClick={() => setRange(r)}
+						onClick={() => onRangeChange(r)}
 						sx={{
 							px: 2,
 							py: 1,
@@ -107,7 +112,10 @@ export default function ChartWidget({ value: _value, data }: Props) {
 								strokeLinejoin="round"
 							/>
 							<path
-								d={`M0,150 ${points.split(' ').map((p) => `L${p}`).join(' ')} L478,150 Z`}
+								d={`M0,150 ${points
+									.split(' ')
+									.map((p) => `L${p}`)
+									.join(' ')} L478,150 Z`}
 								fill="url(#gradient)"
 							/>
 						</>

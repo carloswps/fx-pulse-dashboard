@@ -164,7 +164,7 @@ export default function Header() {
 						/>
 
 						<Chip
-							label={`Updated: ${formatTimestamp(healthData?.timestamp)}`}
+							label={`Updated: ${formatTimestamp(healthData?.worker?.last_scraping)}`}
 							size="small"
 							variant="filled"
 							sx={{

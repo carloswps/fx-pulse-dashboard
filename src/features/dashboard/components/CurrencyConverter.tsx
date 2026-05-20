@@ -47,7 +47,7 @@ export default function CurrencyConverter({ pair }: Props) {
 							sx={{
 								fontWeight: 700,
 								textTransform: 'uppercase',
-								color: 'text.secondary',
+								color: 'textPrimary',
 								mb: 1,
 								display: 'block',
 							}}
@@ -64,7 +64,7 @@ export default function CurrencyConverter({ pair }: Props) {
 									endAdornment: (
 										<Typography
 											variant="body2"
-											color="text.secondary"
+											color="textPrimary"
 											sx={{ fontWeight: 500, mr: 1 }}
 										>
 											{fromCurrency}
@@ -79,7 +79,7 @@ export default function CurrencyConverter({ pair }: Props) {
 						onClick={handleSwap}
 						sx={{
 							mt: 3,
-							bgcolor: 'grey.100',
+							bgcolor: 'primary.light',
 							'&:hover': { bgcolor: 'primary.main', color: 'white' },
 						}}
 					>
@@ -107,7 +107,7 @@ export default function CurrencyConverter({ pair }: Props) {
 									endAdornment: (
 										<Typography
 											variant="body2"
-											color="text.secondary"
+											color="textPrimary"
 											sx={{ fontWeight: 500, mr: 1 }}
 										>
 											{toCurrency}

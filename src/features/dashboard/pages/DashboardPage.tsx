@@ -9,7 +9,6 @@ import {
 import CurrencyConverter from '../components/CurrencyConverter.tsx';
 import MainQuoteCard from '../components/MainQuoteCard.tsx';
 import MarketSummaryCard from '../components/MarketSummaryCard.tsx';
-import QuickLinks from '../components/QuickLinks.tsx';
 
 export default function DashboardPage() {
 	const { data: pairs } = useQuery({
@@ -40,7 +39,7 @@ export default function DashboardPage() {
 
 	return (
 		<Box sx={{ maxWidth: 1280, mx: 'auto', width: '100%', px: 5, py: 4 }}>
-			<Box sx={{ mb: 8 }}>
+			<Box sx={{ mb: 0 }}>
 				<Grid container spacing={3}>
 					<Grid size={{ xs: 12, lg: 8 }}>
 						{primaryPair && (
@@ -57,10 +56,6 @@ export default function DashboardPage() {
 			<Grid container spacing={3}>
 				<Grid size={{ xs: 12, lg: 6 }}>
 					{primaryPair && <CurrencyConverter pair={primaryPair} />}
-				</Grid>
-
-				<Grid size={{ xs: 12, lg: 6 }}>
-					<QuickLinks />
 				</Grid>
 			</Grid>
 			<Footer />

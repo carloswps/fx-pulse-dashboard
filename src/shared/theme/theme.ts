@@ -1,4 +1,5 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, type Theme } from '@mui/material/styles';
+import type {} from '@mui/material/themeCssVarsAugmentation';
 
 const SANS = '"Public Sans", sans-serif';
 const MONO = '"JetBrains Mono", monospace';
@@ -177,10 +178,10 @@ const theme = createTheme({
 	components: {
 		MuiCssBaseline: {
 			styleOverrides: {
-				body: {
-					backgroundColor: '#f8f6f6',
-					color: '#1e293b',
-				},
+				body: ({ theme }: { theme: Theme }) => ({
+					backgroundColor: theme.vars.palette.background.default,
+					color: theme.vars.palette.text.primary,
+				}),
 			},
 		},
 		MuiCard: {

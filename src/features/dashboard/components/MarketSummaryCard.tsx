@@ -71,7 +71,7 @@ export default function MarketSummaryCard({ summary }: Props) {
 							py: 1.5,
 						}}
 					>
-						<Typography variant="body2" color="text.secondary">
+						<Typography variant="body2" color="textSecondary">
 							{row.label}
 						</Typography>
 						<Typography variant="body2" sx={{ fontWeight: 600 }}>
@@ -99,7 +99,7 @@ export default function MarketSummaryCard({ summary }: Props) {
 				>
 					Market Sentiment
 				</Typography>
-				<Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+				<Typography variant="body2" color="textSecondary" sx={{ mt: 0.5 }}>
 					{summary.sentiment}
 				</Typography>
 			</Box>

@@ -704,17 +704,3 @@ Access-Control-Allow-Origin: http://localhost:5173
 - `chore:` Manutenção
 
 ---
-
-## Licença
-
-Projeto privado. Todos os direitos reservados.
-
----
-
-## Contato
-
-Para dúvidas ou sugestões, entre em contato com a equipe de desenvolvimento.
-
----
-
-*Última atualização: Maio 2026*
